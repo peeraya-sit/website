@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IGP Open Campus</title>
+    <style>
+      html, body {
+          margin: 0px;
+          padding: 0px;
+      }
+      body {
+          background-color: black;
+      }
+
+      #title {
+          font-family: sans-serif;
+          padding: 1em;
+          font-size: 3em;
+          color: white;
+          text-align: center;
+          vertical-align: middle;
+      }
+
+      #container {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+      }
+
+      #player {
+      }
+    </style>
+  </head>
+<body>
+
+  <div id="container">
+    <div id="title"> IGP Open Campus 2023 </div>
+    <div id="player"></div>
+</div>
+    <script>
+        var tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player',
+                                   {height: '390',
+                                    width: '640', playerVars: {
+                                        'rel': 0,
+                                        'showinfo': 0,
+                                        'autoplay': 1,
+                                        'controls': 1
+                                    },
+                                    events: {
+                                        'onReady': onPlayerReady,
+                                        'onStateChange': onPlayerStateChange
+                                    }
+                                   });
+        }
+
+        function onPlayerReady( event ) {
+            player.loadPlaylist( {
+                'listType': 'playlist',
+                'list': 'PL-6HdguZfuoITuOXUC1pH0_qUw2kryJAR',
+                // 'index': '1',
+                'startSeconds': '0',
+                'suggestedQuality': 'hd720'
+            });
+            player.setShuffle(true);
+            player.setLoop(true);
+        }
+
+      function onPlayerStateChange( event ) {
+          if (player.getPlayerState() == 1) {
+              document.getElementById( "title" ).innerHTML = player.getVideoData().title;
+              resizePlayer();
+          }
+      }
+
+      function resizePlayer() {
+          let intId = setInterval(function() {
+              if (player) {
+                  let titleDiv = document.getElementById('title');
+                  player.setSize(window.innerWidth, window.innerHeight - titleDiv.clientHeight);
+                  clearInterval(intId);
+              }
+          }, 100);
+      }
+
+      window.onresize = function(event) {
+          resizePlayer();
+      }
+
+      window.onload = function(event) {
+          resizePlayer();
+      }
+
+    </script>
+
+</body>
+</html>
