@@ -33,7 +33,7 @@
 <body>
 
   <div id="container">
-    <div id="title"> IGP Open Campus 2023 </div>
+    <div id="title"> IGP Open Campus <br> 2023</div>
     <div id="player"></div>
 </div>
     <script>
@@ -66,7 +66,7 @@
                 'list': 'PL-6HdguZfuoITuOXUC1pH0_qUw2kryJAR',
                 // 'index': '1',
                 'startSeconds': '0',
-                'suggestedQuality': 'hd720'
+                'suggestedQuality': 'hd1080'
             });
             player.setShuffle({'loopPlaylist': true});
             player.setLoop({'shufflePlaylist': true});
@@ -85,7 +85,7 @@
           let intId = setInterval(function() {
               if (player) {
                   let titleDiv = document.getElementById('title');
-                  player.setSize(window.innerWidth, window.innerHeight - titleDiv.clientHeight);
+                  player.setSize(window.innerWidth, window.innerHeight - titleDiv.clientHeight - 200);
                   clearInterval(intId);
               }
           }, 100);
