@@ -13,7 +13,7 @@
 
       #title {
           font-family: sans-serif;
-          padding: 1em;
+          padding: 0.8em;
           font-size: 3em;
           color: white;
           text-align: center;
@@ -68,13 +68,15 @@
                 'startSeconds': '0',
                 'suggestedQuality': 'hd720'
             });
-            player.setShuffle(true);
-            player.setLoop(true);
+            player.setShuffle({'loopPlaylist': true});
+            player.setLoop({'shufflePlaylist': true});
         }
 
       function onPlayerStateChange( event ) {
           if (player.getPlayerState() == 1) {
-              document.getElementById( "title" ).innerHTML = player.getVideoData().title;
+              let videoTitle = player.getVideoData().title;
+              let parts = videoTitle.split('|');
+              document.getElementById("title").innerHTML =  parts[1] + "<br>" + parts[2];
               resizePlayer();
           }
       }
