@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Publications</title>
   <style>
@@ -16,47 +18,36 @@
     a:hover { text-decoration: underline; }
   </style>
   <script>
-    const sheetID = '12dnp6XReH1eXKoIQU7nGISn5nm6ody1Ethf9IKJxb48';
-    const apiKey = 'AIzaSyCvc1n5OVCFUZwrm9hXO-ORIwxsMyPwS5U';  // Get from Google Cloud Console
-    const range = 'Sheet1!A1:H100'; // Adjust range as needed
+  async function fetchData() {
+    const url = 'https://script.google.com/macros/s/AKfycbwamYLsEw79OkxUHW5bcR4WnSpYPOTg5ulkbPBPYVm6UBoyBZ6veXA4UmYnNB6Zhu7p/exec';
+    const response = await fetch(url);
+    const data = await response.json();
+    populateTable(data);
+  }
 
-    async function fetchData() {
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${range}?key=${apiKey}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      populateTable(data.values);
-    }
+  function populateTable(data) {
+    data.shift(); // Remove headers
+    const table = document.querySelector('table');
+    data.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.classList.add('publication-row');
+      tr.setAttribute('data-type', row[7]);
+      tr.innerHTML = `
+        <td>${row[0]}</td>
+        <td>${row[1]}</td>
+        <td><strong>${row[2]}</strong></td>
+        <td>${row[3]}</td>
+        <td>${row[4]}</td>
+        <td>${row[5]}</td>
+        <td><a href="${row[6]}" target="_blank">Link</a></td>
+      `;
+      table.appendChild(tr);
+    });
+  }
 
-    function populateTable(data) {
-      const table = document.querySelector('table');
-      data.shift(); // Remove headers
-      data.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.classList.add('publication-row');
-        tr.setAttribute('data-type', row[7]); // Type
-        tr.innerHTML = `
-          <td>${row[0]}</td>
-          <td>${row[1]}</td>
-          <td><strong>${row[2]}</strong></td>
-          <td>${row[3]}</td>
-          <td>${row[4]}</td>
-          <td>${row[5]}</td>
-          <td><a href="${row[6]}" target="_blank">Link</a></td>
-        `;
-        table.appendChild(tr);
-      });
-    }
+  window.onload = fetchData;
+</script>
 
-    function filterTable() {
-      var type = document.getElementById("typeFilter").value;
-      var rows = document.getElementsByClassName("publication-row");
-      for (var i = 0; i < rows.length; i++) {
-        rows[i].style.display = (type == "All" || rows[i].dataset.type == type) ? "" : "none";
-      }
-    }
-
-    window.onload = fetchData;
-  </script>
 </head>
 <body>
   <h2>List of Publications</h2>
