@@ -361,17 +361,29 @@
 
 
             <!-- Research Subpage -->
-            <section class="pt-page pt-page-3" data-id="research">
-              <div class="border-block-top-110"></div>
-              <div class="section-inner">
-                <div class="section-title-block">
-                  <div class="section-title-wrapper">
-                    <h2 class="section-title">Research</h2>
-                    <h5 class="section-description">Publication lists and funding</h5>
-                  </div>
-                </div>
-                <div id="publications-list">Loading publication</div>
-               
+           <section class="pt-page pt-page-3" data-id="research">
+    <div class="section-inner">
+      <div class="section-title-block">
+        <h2 class="section-title">Research</h2>
+        <h5 class="section-description">Publication lists and funding</h5>
+      </div>
+      
+      <h3>Journal Publications</h3>
+      <table id="journal-table" class="table table-bordered table-striped">
+        <thead>
+          <tr><th>Publication</th></tr>
+        </thead>
+        <tbody><tr><td>Loading journal publications...</td></tr></tbody>
+      </table>
+
+      <h3>Conference Publications</h3>
+      <table id="conference-table" class="table table-bordered table-striped">
+        <thead>
+          <tr><th>Publication</th></tr>
+        </thead>
+        <tbody><tr><td>Loading conference publications...</td></tr></tbody>
+      </table>
+    </div>
 
                 <div class="row">
                   <div class="col-sm-12 col-md-12 subpage-block">
@@ -481,22 +493,24 @@
         const data = json.table.rows.map(row => {
           if (!row.c) return null;
           return {
-            type: row.c[0]?.v.toLowerCase() || 'other',
-            entries: row.c.slice(1).map(c => c ? c.v : '')
+            type: String(row.c[0]?.v || '').toLowerCase(),
+            entries: row.c.slice(1).map(c => c ? String(c.v) : '')
           };
         }).filter(item => item);
 
         let journalCount = 0, conferenceCount = 0;
         data.forEach(item => {
           item.entries.forEach(entry => {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td>${entry}</td>`;
-            if (item.type.includes('journal')) {
-              journalTable.appendChild(row);
-              journalCount++;
-            } else if (item.type.includes('conference')) {
-              conferenceTable.appendChild(row);
-              conferenceCount++;
+            if (entry.trim()) {
+              const row = document.createElement('tr');
+              row.innerHTML = `<td>${entry}</td>`;
+              if (item.type.includes('journal')) {
+                journalTable.appendChild(row);
+                journalCount++;
+              } else if (item.type.includes('conference')) {
+                conferenceTable.appendChild(row);
+                conferenceCount++;
+              }
             }
           });
         });
