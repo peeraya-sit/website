@@ -23,17 +23,22 @@
   <script src="js/jquery-2.1.3.min.js"></script>
   <script src="js/modernizr.custom.js"></script>
   <script>
-    async function fetchData() {
-    const url = 'https://script.google.com/macros/s/AKfycbwamYLsEw79OkxUHW5bcR4WnSpYPOTg5ulkbPBPYVm6UBoyBZ6veXA4UmYnNB6Zhu7p/exec';
-    const response = await fetch(url);
-    const data = await response.json();
-    populatePublications(data);
-  }
-    
-   
+    async function fetchAndDisplayPublications() {
+      const url = 'https://docs.google.com/spreadsheets/d/12dnp6XReH1eXKoIQU7nGISn5nm6ody1Ethf9IKJxb48/gviz/tq?tqx=out:json';
+      const response = await fetch(url);
+      const text = await response.text();
+      const json = JSON.parse(text.substr(47).slice(0, -2));
 
-    function populatePublications(data) {
       const container = document.getElementById('publications-list');
+      container.innerHTML = '';
+
+      const data = json.table.rows.map(row => {
+        return {
+          type: row.c[0].v,
+          entries: row.c.slice(1).map(c => c.v)
+        };
+      });
+
       data.forEach(item => {
         const section = document.createElement('div');
         section.classList.add('col-sm-12', 'col-md-12', 'subpage-block');
@@ -48,8 +53,7 @@
         container.appendChild(section);
       });
     }
-
-    window.onload = fetchPublications;
+    window.onload = fetchAndDisplayPublications;
   </script>
 </head>
 
