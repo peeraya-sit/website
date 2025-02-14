@@ -465,41 +465,48 @@
 </div>
 </section>
 <!-- End research Subpage -->
-
-      <script>
-   async function fetchAndDisplayPublications() {
+<script>
+    async function fetchAndDisplayPublications() {
       const url = 'https://docs.google.com/spreadsheets/d/12dnp6XReH1eXKoIQU7nGISn5nm6ody1Ethf9IKJxb48/gviz/tq?tqx=out:json';
       try {
         const response = await fetch(url);
         const text = await response.text();
         const json = JSON.parse(text.substring(47, text.length - 2));
-        const container = document.getElementById('publications-list');
-        container.innerHTML = '';
+
+        const journalTable = document.querySelector('#journal-table tbody');
+        const conferenceTable = document.querySelector('#conference-table tbody');
+        journalTable.innerHTML = '';
+        conferenceTable.innerHTML = '';
 
         const data = json.table.rows.map(row => {
           if (!row.c) return null;
           return {
-            type: row.c[0]?.v || 'Uncategorized',
+            type: row.c[0]?.v.toLowerCase() || 'other',
             entries: row.c.slice(1).map(c => c ? c.v : '')
           };
         }).filter(item => item);
 
+        let journalCount = 0, conferenceCount = 0;
         data.forEach(item => {
-          const section = document.createElement('div');
-          section.classList.add('col-sm-12', 'col-md-12', 'subpage-block');
-          section.innerHTML = `
-            <div class="block-title">
-              <h3>${item.type}</h3>
-            </div>
-            <ol>
-              ${item.entries.map(pub => `<li>${pub}</li>`).join('')}
-            </ol>
-          `;
-          container.appendChild(section);
+          item.entries.forEach(entry => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${entry}</td>`;
+            if (item.type.includes('journal')) {
+              journalTable.appendChild(row);
+              journalCount++;
+            } else if (item.type.includes('conference')) {
+              conferenceTable.appendChild(row);
+              conferenceCount++;
+            }
+          });
         });
+
+        if (journalCount === 0) journalTable.innerHTML = '<tr><td>No journal publications found.</td></tr>';
+        if (conferenceCount === 0) conferenceTable.innerHTML = '<tr><td>No conference publications found.</td></tr>';
       } catch (error) {
         console.error('Error fetching data:', error);
-        document.getElementById('publications-list').innerHTML = '<p>Error loading publications.</p>';
+        document.querySelector('#journal-table tbody').innerHTML = '<tr><td>Error loading journal publications.</td></tr>';
+        document.querySelector('#conference-table tbody').innerHTML = '<tr><td>Error loading conference publications.</td></tr>';
       }
     }
     window.onload = fetchAndDisplayPublications;
