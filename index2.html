@@ -22,7 +22,32 @@
 
   <script src="js/jquery-2.1.3.min.js"></script>
   <script src="js/modernizr.custom.js"></script>
-  
+  <style>
+    #journal-table th:nth-child(1), #journal-table td:nth-child(1),
+    #conference-table th:nth-child(1), #conference-table td:nth-child(1) {
+      width: 8%; /* Number column smallest */
+    }
+    #journal-table th:nth-child(2), #journal-table td:nth-child(2),
+    #conference-table th:nth-child(2), #conference-table td:nth-child(2) {
+      width: 20%; /* Authors column medium */
+    }
+    #journal-table th:nth-child(3), #journal-table td:nth-child(3),
+    #conference-table th:nth-child(3), #conference-table td:nth-child(3) {
+      width: 40%; /* Title column largest */
+    }
+    #journal-table th:nth-child(4), #journal-table td:nth-child(4),
+    #conference-table th:nth-child(4), #conference-table td:nth-child(4) {
+      width: 15%; /* Venue column medium */
+    }
+    #journal-table th:nth-child(5), #journal-table td:nth-child(5),
+    #conference-table th:nth-child(5), #conference-table td:nth-child(5) {
+      width: 10%; /* Year column small */
+    }
+    #journal-table th:nth-child(6), #journal-table td:nth-child(6),
+    #conference-table th:nth-child(6), #conference-table td:nth-child(6) {
+      width: 7%; /* Link column smallest */
+    }
+  </style>
 </head>
 
 <body>
@@ -442,7 +467,7 @@
 </div>
 </section>
 <!-- End research Subpage -->
-<<script>
+<script>
     async function fetchAndDisplayPublications() {
       const url = 'https://docs.google.com/spreadsheets/d/12dnp6XReH1eXKoIQU7nGISn5nm6ody1Ethf9IKJxb48/gviz/tq?tqx=out:json';
       try {
