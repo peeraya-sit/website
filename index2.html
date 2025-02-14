@@ -493,30 +493,20 @@
         const data = json.table.rows.map(row => {
           if (!row.c) return null;
           return {
-            type: String(row.c[0]?.v || '').toLowerCase(),
-            entries: row.c.slice(1).map(c => c ? String(c.v) : '')
+            type: String(row.c[7]?.v || '').trim().toLowerCase(),  // 8th column
+            entry: row.c.slice(0, 7).map(c => c ? String(c.v).trim() : '').join(', ')
           };
         }).filter(item => item);
 
-        let journalCount = 0, conferenceCount = 0;
         data.forEach(item => {
-          item.entries.forEach(entry => {
-            if (entry.trim()) {
-              const row = document.createElement('tr');
-              row.innerHTML = `<td>${entry}</td>`;
-              if (item.type.includes('journal')) {
-                journalTable.appendChild(row);
-                journalCount++;
-              } else if (item.type.includes('conference')) {
-                conferenceTable.appendChild(row);
-                conferenceCount++;
-              }
-            }
-          });
+          const row = document.createElement('tr');
+          row.innerHTML = `<td>${item.entry}</td>`;
+          if (item.type.includes('journal')) {
+            journalTable.appendChild(row);
+          } else if (item.type.includes('conference')) {
+            conferenceTable.appendChild(row);
+          }
         });
-
-        if (journalCount === 0) journalTable.innerHTML = '<tr><td>No journal publications found.</td></tr>';
-        if (conferenceCount === 0) conferenceTable.innerHTML = '<tr><td>No conference publications found.</td></tr>';
       } catch (error) {
         console.error('Error fetching data:', error);
         document.querySelector('#journal-table tbody').innerHTML = '<tr><td>Error loading journal publications.</td></tr>';
