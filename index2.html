@@ -423,8 +423,7 @@
         <tbody><tr><td colspan="6">Loading conference publications...</td></tr></tbody>
       </table>
     </div>
-  </section>
-
+  
                 <div class="row">
                   <div class="col-sm-12 col-md-12 subpage-block">
                     <div class="block-title">
@@ -484,10 +483,10 @@
           if (!row.c) return null;
           return {
             type: String(row.c[7]?.v || '').trim().toLowerCase(),
-            authors: row.c[0]?.v || '',
-            title: row.c[1]?.v || '',
-            venue: row.c[2]?.v || '',
-            year: row.c[3]?.v || '',
+            authors: row.c[1]?.v || '',
+            title: row.c[2]?.v || '',
+            venue: row.c[3]?.v || '',
+            year: row.c[0]?.v || '',
             link: row.c[4]?.v || ''
           };
         }).filter(item => item);
