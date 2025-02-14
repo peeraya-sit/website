@@ -22,44 +22,7 @@
 
   <script src="js/jquery-2.1.3.min.js"></script>
   <script src="js/modernizr.custom.js"></script>
-  <script>
-   async function fetchAndDisplayPublications() {
-      const url = 'https://docs.google.com/spreadsheets/d/12dnp6XReH1eXKoIQU7nGISn5nm6ody1Ethf9IKJxb48/gviz/tq?tqx=out:json';
-      try {
-        const response = await fetch(url);
-        const text = await response.text();
-        const json = JSON.parse(text.substring(47, text.length - 2));
-        const container = document.getElementById('publications-list');
-        container.innerHTML = '';
-
-        const data = json.table.rows.map(row => {
-          if (!row.c) return null;
-          return {
-            type: row.c[0]?.v || 'Uncategorized',
-            entries: row.c.slice(1).map(c => c ? c.v : '')
-          };
-        }).filter(item => item);
-
-        data.forEach(item => {
-          const section = document.createElement('div');
-          section.classList.add('col-sm-12', 'col-md-12', 'subpage-block');
-          section.innerHTML = `
-            <div class="block-title">
-              <h3>${item.type}</h3>
-            </div>
-            <ol>
-              ${item.entries.map(pub => `<li>${pub}</li>`).join('')}
-            </ol>
-          `;
-          container.appendChild(section);
-        });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        document.getElementById('publications-list').innerHTML = '<p>Error loading publications.</p>';
-      }
-    }
-    window.onload = fetchAndDisplayPublications;
-  </script>
+  
 </head>
 
 <body>
@@ -503,6 +466,44 @@
 </section>
 <!-- End research Subpage -->
 
+      <script>
+   async function fetchAndDisplayPublications() {
+      const url = 'https://docs.google.com/spreadsheets/d/12dnp6XReH1eXKoIQU7nGISn5nm6ody1Ethf9IKJxb48/gviz/tq?tqx=out:json';
+      try {
+        const response = await fetch(url);
+        const text = await response.text();
+        const json = JSON.parse(text.substring(47, text.length - 2));
+        const container = document.getElementById('publications-list');
+        container.innerHTML = '';
+
+        const data = json.table.rows.map(row => {
+          if (!row.c) return null;
+          return {
+            type: row.c[0]?.v || 'Uncategorized',
+            entries: row.c.slice(1).map(c => c ? c.v : '')
+          };
+        }).filter(item => item);
+
+        data.forEach(item => {
+          const section = document.createElement('div');
+          section.classList.add('col-sm-12', 'col-md-12', 'subpage-block');
+          section.innerHTML = `
+            <div class="block-title">
+              <h3>${item.type}</h3>
+            </div>
+            <ol>
+              ${item.entries.map(pub => `<li>${pub}</li>`).join('')}
+            </ol>
+          `;
+          container.appendChild(section);
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('publications-list').innerHTML = '<p>Error loading publications.</p>';
+      }
+    }
+    window.onload = fetchAndDisplayPublications;
+  </script>
 
 <!-- teaching Subpage -->
 <section class="pt-page pt-page-4" data-id="teaching">
