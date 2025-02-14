@@ -22,6 +22,34 @@
 
   <script src="js/jquery-2.1.3.min.js"></script>
   <script src="js/modernizr.custom.js"></script>
+  <script>
+    const sheetURL = 'https://script.google.com/macros/s/your_deployed_webapp_url_here/exec';
+
+    async function fetchPublications() {
+      const response = await fetch(sheetURL);
+      const data = await response.json();
+      populatePublications(data);
+    }
+
+    function populatePublications(data) {
+      const container = document.getElementById('publications-list');
+      data.forEach(item => {
+        const section = document.createElement('div');
+        section.classList.add('col-sm-12', 'col-md-12', 'subpage-block');
+        section.innerHTML = `
+          <div class="block-title">
+            <h3>${item.type}</h3>
+          </div>
+          <ol>
+            ${item.entries.map(pub => `<li>${pub}</li>`).join('')}
+          </ol>
+        `;
+        container.appendChild(section);
+      });
+    }
+
+    window.onload = fetchPublications;
+  </script>
 </head>
 
 <body>
@@ -369,139 +397,8 @@
                     <h5 class="section-description">Publication lists and funding</h5>
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="col-sm-12 col-md-12 subpage-block">
-                    <div class="block-title">
-                      <h3>Journal publications</h3>
-                    </div>
-                    <ol>
-                      <li>P. Sripian, M. N. A. M. Anuardi, Y. Kajihara, M. Sugaya, "Empathetic robot evaluation through emotion estimation analysis and facial expression synchronization from biological information", Artificial Life and Robotics, (2021, accepted, in press)</li>
-                      <li>P. Sripian, M. N. A. M. Anuardi, T. Ito , Y. Tobe, and M. Sugaya, "Emotion-sensitive Voice-Casting Care Robot in Rehabilitation Using Real-time Sensing and Analysis of Biometric Information", Journal of Ambient Intelligence and Smart Environments, (2021, accepted, in press)</li>
-                      <li>P. Sripian, M. N. A. M. Anuardi, J. Yu, and M. Sugaya, "The Implementation and Evaluation of Individual Preference in Robot Facial Expression Based on Emotion Estimation Using Biological Signals," Sensors, vol. 21, no. 18, p. 6322, 2021. [Online]. Available: https://www.mdpi.com/1424-8220/21/18/6322.</li>
-                      <li>スリーピアン ピーラヤー，大倉典子，ケージケーオ タネースーン，宮武恵子, "色彩特徴の統計解析による口紅のブランドの特徴づけ-色画像のRGB値を用いて," 日本感性工学会論文誌, vol. 19, no. 4, pp. 389-393, 2020, doi: 10.5057/jjske.TJSKE-D-20-00010.</li>
-                      <li>P. Sripian and Y. Yamaguchi, "Hybrid image of three contents," Visual computing for industry, biomedicine, and art, vol. 3, no. 1, pp. 1-8, 2020.</li>
-                      <li>P. Sripian, K. Miyatake, and M. Ohkura, "Study on the color feature of Harajuku-type kawaii fashion comparison with street snap images using colorfulness," TNI Journal of Engineering and Technology, vol. 8, no. 1, pp. 63-72, 2020.</li>
-                      <li>C. Feng, P. Sripian, and M. Sugaya, "Social Networking Services Support Application Based on Biological Information," Sensors and Materials, vol. 32, no. 2, pp. 723-733, 2020.</li>
-                      <li>T. Uasmith, T. Pukkaman, and S. Peeraya, "Low-poly image stylization," Journal for Geometry and Graphics, vol. 21, no. 1, pp. 131-139, 2017.</li>
-                      <li>P. Sripian and Y. Yamaguchi, "Synthesis and assessment methods for an edge-alignment-free hybrid image," Journal of Electronic Imaging, vol. 26, no. 4, p. 043016, 2017.</li>
-                      <li>P. Sripian, T. Boonlar, and T. Yingthavornsuk, "An Innovative Media for Testing Visual Acuity," UTK Research Journal, vol. 10, no. 1, pp. 28-33, 2016.</li>
-</ol>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-sm-12 col-md-12 subpage-block">
-                    <div class="block-title">
-                      <h3>International Conference proceedings (refereed) </h3>
-                    </div>
-                    <ol>
-                      <li>Sripian, P., Ijiri, T., Yamaguchi, Y.: Binoculars’ illusion - linear perspective perception in binoculars on ground. In: Proceedings of The 13th Asian Forum on Graphic Science (AFGS 2021) (2021)</li>
-                      <li> S. Mohamaddan, T. S. Hong, A. Jamali, S. R. Ghazali, S. A. Awang, P. Sripian and A. Hanafusa, "Preliminary Study on Modelling and Simulation of Virtual Reality Assistive Tool for Autism Children Using Gaming Software," in International Conference on Biomedical Engineering (ICoBE 2021), 2021, pp. 1-8</li>
-                      <li> P. Sripian, K. Miyatake, T. Laohakangvalvit, and M. Ohkura, "Comparison of Color Features of Kawaii Fashion Styles in Japan," in International Conference on Human-Computer Interaction, 2021: Springer, pp. 494-504. </li>
-<li> C. Shimamura, P. Sripian, and M. Sugaya, "Blossoms: Preliminary Experiment on Sharing Empathy Online," in International Conference on Human-Computer Interaction, 2021: Springer, pp. 375-383. </li>
-<li> K. Raja, T. Laohakangvalvit, P. Sripian, and M. Sugaya, "Effect of Emotion Synchronization in Robot Facial Expressions," in International Conference on Human-Computer Interaction, 2021: Springer, pp. 181-188. </li>
-<li> Y. Nakagawa, P. Sripian, and M. Sugaya, "Evaluation of Distance Learning Effects on Concentration and Relaxed States by EEG and HRV," in International Conference on Applied Human Factors and Ergonomics, 2021: Springer, pp. 315-323. <span class="noticehere">Best student paper award</span></li>
-<li> T. Laohakangvalvit, P. Sripian, M. Sugaya, and M. Ohkura, "Relationship Between Robot Designs and Preferences in Kawaii Attributes," in International Conference on Human-Computer Interaction, 2021: Springer, pp. 251-261. </li>
-<li> S. Imura, K. Murayama, P. Sripian, T. Laohakangvalvit, and M. Sugaya, "Kansei Evaluation of Robots in Virtual Space Considering Their Physical Attributes," in International Conference on Human-Computer Interaction, 2021: Springer, pp. 228-240. </li>
-<li> D. Berque et al., "Cross-cultural design and evaluation of robot prototypes based on Kawaii (Cute) attributes," in International Conference on Human-Computer Interaction, 2021: Springer, pp. 319-334. </li>
-<li> R. Zhang, C. Feng, P. Sripian, and M. Sugaya, "A Preliminary Experiment on the Evaluation of Aroma Effects Using Biological Signals," in International Conference on Human-Computer Interaction, 2020: Springer, pp. 94-104. </li>
-<li> P. Sripian, K. Miyatake, K. Thanasuan, and M. Ohkura, "Color analysis of popular lipstick brands," in International Conference on Applied Human Factors and Ergonomics, 2020: Springer, pp. 971-977. </li>
-<li> R. Nakamura, P. Sripian, and M. Sugaya, "Proposal of shared robot in cafe," in ADADA+CUMULUS 2020, 2020. </li>
-<li> Y. Kajihara, P. Sripian, C. Feng, and M. Sugaya, "Emotion Synchronization Method for Robot Facial Expression," in International Conference on Human-Computer Interaction, 2020: Springer, pp. 644-653. </li>
-<li> M. Hayashi, P. Sripian, U. M. Rajagopalan, R. Zhang, and M. Sugaya, "Investigation of biological signals under the stimulation of basic tastes," in International Conference on Human-Computer Interaction, 2020: Springer, pp. 40-49. </li>
-<li> D. Berque, H. Chiba, M. Ohkura, P. Sripian, and M. Sugaya, "Fostering Cross-Cultural Research by Cross-Cultural Student Teams: A Case Study Related to Kawaii (Cute) Robot Design," in International Conference on Human-Computer Interaction, 2020: Springer, pp. 553-563. </li>
-<li> S. Suzuki, C. Feng, P. Sripian, R. Yoshida, and M. Sugaya, "Virtual Agent to Absorb the Difference of Impression According with Real-time Emotion by Biometric Information," in 2019 International Workshop on Smart Info-Media Systems in Asia, 2019. </li>
-<li> P. Sripian and Y. Yamaguchi, "Hybrid Image of Three Contents," in Proceedings of The 14th Asian Forum on Graphic Science (AFGS 2019), 2019. </li>
-<li> P. Sripian, K. Thanasuan, K. Miyatake, and M. Ohkura, "The analysis of kawaii fashion in Thailand and Japan using colorfulness metrics," in International Conference on Applied Human Factors and Ergonomics, 2019: Springer, pp. 224-231. </li>
-<li>P. Sripian, R. Nimnual, T. Hemathugsin, and K. Fongranon, "HalluciFear: Educational Game About Drug Addiction," in Neo-Simulation and Gaming Toward Active Learning: Springer, 2019, pp. 23-33.</li>
-<li> P. Sripian, Y. Kurono, R. Yoshida, and M. Sugaya, "Study of Empathy on Robot Expression Based on Emotion Estimated from Facial Expression and Biological Signals," in The 28th IEEE International Conference on Robot & Human Interactive Communication, New Delhi, India, 2019: IEEE, pp. 1090-1097. </li>
-<li> G. Shiraiwa, P. Sripian, and M. Sugaya, "Verification of the support effect of robots that voice-casting for individual students," in Asia Pacific Conference on Robot IoT System Development and Platform (APRIS 2019), 2019. </li>
-<li> M. Ohkura, H. Arashina, T. Tombe, and P. Sripian, "Evaluation of Kawaii Feelings Caused by Stuffed Animals to Reduce Stress," in International Conference on Applied Human Factors and Ergonomics, 2019: Springer, pp. 213-223. </li>
-<li> Y. Kurono, P. Sripian, F. Chen, and M. Sugaya, "A Preliminary Experiment on the Estimation of Emotion Using Facial Expression and Biological Signals," in International Conference on Human-Computer Interaction, Cham, 2019: Springer International Publishing, in Human-Computer Interaction. Recognition and Interaction Technologies, pp. 133-142. </li>
-<li> C. Feng, P. Sripian, and M. Sugay, "Feedback of Physiological-Based Emotion before Publishing Emotional Expression on Social Media," in 2019 8th International Conference on Affective Computing and Intelligent Interaction Workshops and Demos (ACIIW), 2019: IEEE, pp. 1-4. </li>
-<li> P. Sripian, "Computational visual illusion and its application," in International Conference on Geometry and Graphics, 2018: Springer, pp. 106-113. </li>
-<li> P. Sripian, K. Rodcharoen, N. Pochoom, and P. Anusakulroj, "Dental Radiographic Interpretation and Analysis Report-Aided System," in Proceedings of Creative Media and Innovation Conference (CMIC'17), 2017. </li>
-<li> P. Sripian, T. Heamatugsin, and K. Fongranon, "HalluciFear Game," in Proceedings of Creative Media and Innovation Conference (CMIC'17), 2017. </li>
-<li> P. Sripian, P. Damrisab, D. Vaipotjanart, and P. Chitpeanboon, "Bike to Bike Communication Device for Cyclists," in Proceedings of Creative Media and Innovation Conference (CMIC'17), 2017. </li>
-<li> P. Sripian, "Using Hybrid Image as the Assessment Tool for Different Levels of Myopia," in Asian Forum on Graphic Science, 2017. </li>
-<li> T. Chirutpadathorn, T. Kovitveeratham, P. Sripian, and S. Suksri, "Rehabilitation Game for CVA Patients using Smartphone with Gyro Sensor via Bluetooth Connection," in Proceedings of Creative Media and Innovation Conference (CMIC'17), 2017. </li>
-<li> V. Vorakitphan, C. Chaisakdanukool, T. Xiao, and P. Sripian, "Interactive innovation cube by proximity sensing," in Proceedings of International Conference on Creative Technology (CRETECH’16), 2016. </li>
-<li> T. Uasmith, T. Pukkaman, and P. Sripian, "Low Poly Image Stylization," in Proceedings of 16th International Conference on Geometry and Graphics (ICGG), 2016. </li>
-<li> P. Sripian, "Toward using hybrid image as a visual acuity assessment tool," in Nicograph International (NicoInt), 2016, 2016: IEEE, pp. 171-177. <span class="noticehere">Best presentation award</span></li>
-<li> W. Akkarachitsakul, S. Tong-eim, and P. Sripian, "Projection Mapping Technique for Equally Object Slicing," in Proceedings of International Conference on Creative Technology (CRETECH’16), 2016. </li>
-<li> T. Teintipsiri, P. Sripian, and D. Ngoprasert, "Asiatic Black Bear Identification Based On Chest Marks Photo Classification," in Proceedings of The 10th Asian Forum on Graphic Science (AFGS 2015), 2015. </li>
-<li> P. Sripian, T. Boonlar, and T. Yingthawornsuk, "An Innovative Media for Testing Visual Acuity," in Proceedings of International Conference on Creative Technology (CRETECH’15), 2015. </li>
-<li> W. Pardee, P. Yusungnern, and P. Sripian, "Flower Identification System by Image Processing," in 3rd International Conference on Creative Technology CRETECH, 2015, vol. 1, pp. 1-4. </li>
-<li> K. Teawsawang, C. Nainapalert, and P. Sripian, "Sketching a Crime Suspect on 3-D," in Proceedings of International Conference on Creative Technology (CRETECH’14), 2014. </li>
-<li> P. Sripian and Y. Yamaguchi, "Assessment Method for Edge Alignment-Free Hybrid Image," in Proceedings of 14th International Conference on Geometry and Graphics (ICGG), 2014. </li>
-<li> P. Sripian and Y. Yamaguchi, "Shape-free hybrid image," in Proceedings of the Symposium on Non-Photorealistic Animation and Rendering, 2012: Eurographics Association, pp. 11-19. </li>
-<li> P. Sripian and Y. Yamaguchi, "Shape-free hybrid image effects of artificial noise and complementary color," in Perception ECVP abstract, 2012, vol. 41, pp. 7-7. </li>
-<li> P. Sripian and Y. Yamaguchi, "Toward a shape-free hybrid image: Experimental on visual contrast sensitivity," in Proceedings of 14th International Conference on Geometry and Graphics (ICGG), 2010. </li>
-                    </ol>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-sm-12 col-md-12 subpage-block">
-                    <div class="block-title">
-                      <h3>Poster presentation in International Conference (refereed)</h3>
-                    </div>
-                    <ol>
-                      <li> S. Ziaratnia, P. Sripian, T. Laohakangvalvit, K. Ohzeki, and M. Sugaya, "End-To-End Deep Learning for pNN50 Estimation Using a Spatiotemporal Representation," in International Conference on Human-Computer Interaction, 2021: Springer, Cham, pp. 588-593. </li>
-<li> Y. Nakagawa, P. Sripian, and M. Sugaya, "Evaluation of Distance Learning Effects on Concentration and Relaxed States by EEG and HRV," in International Conference on Applied Human Factors and Ergonomics, 2021: Springer, pp. 315-323. </li>
-<li> P. Sripian, "Hybrid image as the assessment tool for myopia severity level," in 2017 Nicograph International (NicoInt), 2017: IEEE, pp. 85-85. </li>
-<li> P. Sripian and Y. Yamaguchi, "Hybrid Image of Three Contents," in CUMULUS Conference Rovaniemi, 2015. </li></ol>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12 col-md-12 subpage-block">
-                    <div class="block-title">
-                      <h3>Domestic conferences presentation (full-paper)</h3>
-                    </div>
-                    <ol>
-
-  <li>中川友梨, 谷田川ルミ, スリーピァンピーラヤー, and 菅谷みどり, "オンライン授業でのコミュニケーション差異と学習状態の EEG と HRV による定量評価," presented at the 電子情報通信学会技術研究報告; 信学技報, 2021.<span class="noticehere">Best presentation award</span></li>
-  <li> 嵩柾大塚, ピーラヤースリーピァン, ティポーンラオハカンワンウィット, and みどり菅谷, "深層学習を用いた「かわいいキャラ」分類モデルの評価," in JSKE 第23回日本感性工学会大会, 2021. </li>
-  <li> 舜井村 et al., "日米学生によるバーチャルロボットの感性評価PBLの経験," in 第26回バーチャルリアリティ学会大会, 2021. </li>
-  <li> 宮武恵子, S. Peeraya, L. Tipporn, and 大倉典子, "かわいい・kawaiiファッションに関する研究(第10報) -ファッション志向にみるピンク色の評価と好み," in JSKE 第16回日本感性工学会春季大会, 2021. </li>
-  <li> S. Ziaratnia, P. Sripian, K. Ohzeki, and M. Sugaya, "End-to-End Deep Learning for pNN50 Estimation Using a Spatiotemporal Representation," in クラウドネットワークロボット研究会（CNR）, 2021. </li>
-  <li> S. Ziaratnia, P. Sripian, K. Ohzeki, and M. Sugaya, "End-to-End Deep Learning for pNN50 Estimation Using a Spatiotemporal Representation," in The 35th Annual Conference of the Japanese Sosiety for Artificial Intelligence, 2021. </li>
-  <li> J. Yu, M. N. A. M. Anuardi, P. Sripian, and M. Sugaya, "Robot Expression Preferences Assessment with the Individual Differences using Logistic Regression Approach," in International Conference on “Design of Comfortable Life using Mathematical Sciences", 2021. <span class="noticehere">Best presentation award</span></li>
-  <li> 典. 恵. S. P. L. Tipporn大倉, "かわいい・ kawaiiファッションに関する研究（第12報)," in JSKE 第23回日本感性工学会大会, 2021. </li>
-  <li> P. Sripian, K. Miyatake, and M. Ohkura, "Study on Style of Kawaii Fashion (11th Report) –The Colorfulness comparison of various Kawaii fashions–," in The 16th Spring Annual Meeting of Japan Society of Kansei Engineering, Online, 2021, 2021. </li>
-  <li> P. SRIPIAN, K. MIYATAKE, T. LAOHAKANGVALVIT, and M. OHKURA, "Study on Style of Kawaii Fashion (13th report)," in The 23th Annual Meeting of Japan Society of Kansei Engineering, 2021. </li>
-  <li> M. OHKURA, M. SUGAYA, P. SRIPIAN, T. LAOHAKANGVALVIT, H. CHIBA, and D. BERQUE, "Design and Implementation of Kawaii Robots by Japanese and American University Students using Remote Collaboration," in International Symposium on Affective Science and Engineering ISASE2021, 2021: Japan Society of Kansei Engineering, pp. 1-4. </li>
-  <li> T. Laohakangvalvit, P. Sripian, K. Miyatake, and M. Ohkura, "Study on Style of Kawaii Fashion (14th Report)," in The 23th Annual Meeting of Japan Society of Kansei Engineering, 2021. </li>
-  <li> 大倉典子, S. Peeraya, and 宮武恵子, "かわいい・kawaiiファッションに関する研究(第8報)-ファッション雑誌にみるピンク色を用いたスタイリングの統計的分析," in 第15回日本感性工学会春季大会, 2020. </li>
-  <li> 宮武恵子, S. Peeraya, and 大倉典子, "かわいい・kawaiiファッションに関する研究(第9報)-ファッション雑誌にみるピンク色アイテムのデザインとスタイリング分析," in 第22回日本感性工学会大会, 2020. </li>
-  <li> 宮武恵子, S. Peeraya, and 大倉典子, "かわいい・kawaiiファッションに関する研究(第7報)-ファッション雑誌にみるピンク色を用いたスタイリング分析," in 第15回日本感性工学会春季大会, 2020. </li>
-  <li> 梶原優俊, ピーラヤースリーピァン, and 菅谷みどり, "生体情報による感情分析と表情の同期手法による共感ロボットの提案," in クラウドネットワークロボット研究会（CNR), 2020. </li>
-  <li> S. Imura, K. Murayama, S. Peeraya, and M. Sugaya, "Kansei Evaluation for Robots in Virtual Space--The impression toward different robot shape," in IEICE Technical Report; IEICE Tech. Rep., 2020, vol. 120, no. 262, pp. 30-35. </li>
-  <li> 宮武恵子, S. Peeraya, and 大倉典子, "かわいい・kawaiiファッションに関する研究（第5報）－日本の実態を捉えて－," in 第21回日本感性工学会大会, 2019. </li>
-  <li>亀井亮汰, スリーピァンピーラヤー, and 井尻敬, "物体領域の内部および輪郭のブラー効果による奥行き知覚の変化 (映像表現 & コンピュータグラフィックス)," 映像情報メディア学会技術報告= ITE technical report, vol. 43, no. 9, pp. 239-242, 2019.</li>
-  <li>亀井亮汰, スリーピァンピーラヤー, and 井尻敬, "物体領域の内部および輪郭のブラー効果による奥行き知覚の変化 (映像表現 & コンピュータグラフィックス)," 映像情報メディア学会技術報告= ITE technical report, vol. 43, no. 9, pp. 239-242, 2019.</li>
-  <li> P. Sripian, K. Thanasuan, K. Miyatake, and M. Ohkura, "Study on Style of Harajuku Kawaii Fashion (4th report)–The comparison with Thai Fashion–," in 第20回日本感性工学会大会, 2019. <span class="noticehere">Best presentation award</span></li>
-  <li> P. Sripian, K. Miyatake, and M. Ohkura, "Study on color feature of Harajuku Kawaii fashion – The comparison with street snap images –," in 第20回日本感性工学会大会, 2019. </li>
-  <li> 大倉典子, S. Peeraya, and 宮武恵子, "原宿系kawaiiファッションのスタイルに関する研究（第1報）－デザインの特徴－," in 第20回日本感性工学会大会, 2018. </li>
-  <li> K. M. Peeraya Sripian, Michiko Ohkura, "Study on Style of Harajuku Kawaii Fashion (2nd Report) - Color Features," in 第20回日本感性工学会大会, 2018. </li>
-  <li>S. Peeraya and Y. Yamaguchi, "物体形状に依存しないハイブリッド画像の作成手法," presented at the 研究報告グラフィクスとCAD（CG）, 2012.</li>
-  <li> P. Sripian and Y. YAMAGUCHI, "Hybrid Image From Different Contents," in 情報処理学会研究報告. グラフィクスと CAD 研究会報告, 2010, vol. 138, pp. J1-J6. </li></ol>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12 col-md-12 subpage-block">
-                    <div class="block-title">
-                      <h3>Poster presentation in Domestic Conference</h3>
-                    </div>
-                    <ol>
-                      <li> 林雅貴, スリーピァン　ピーラヤー, ラジャゴパラン ウママヘスワリ, 菅谷みどり, "生体情報を用いた味覚刺激による感性評価方法の検討," in 第21回日本感性工学会大会 (Poster), 2019. </li>
-<li> 梶原優俊, ピーラヤースリーピァン, and 菅谷みどり, "感情同期によるロボット表情決定手法の検討," in 第21回日本感性工学会大会 (Poster), 2019. </li>
-<li> 浦部直人, ピーラヤースリーピァン, and 菅谷みどり, "機械学習を用いた複数の生体情報による感情推定手法の提案," in JSKE 第21回日本感性工学会大会, 2019. </li>
-<li> K. Yuya, S. Peeraya, Y. Reiji, and S. Midori, "感情同調を用いた共感ロボットの実現手法の検討," in Interaction 2019 (Poster), 2019. </li>
-</ol>
-                        </div>
-                </div>
+                <div id="publications-list"></div>
+               
 
                 <div class="row">
                   <div class="col-sm-12 col-md-12 subpage-block">
