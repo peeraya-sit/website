@@ -500,6 +500,7 @@
 </div>
 </section>
 <!-- End research Subpage -->
+
       <script>
      async function fetchAndDisplayPublications() {
   const url = 'https://docs.google.com/spreadsheets/d/12dnp6XReH1eXKoIQU7nGISn5nm6ody1Ethf9IKJxb48/gviz/tq?tqx=out:json';
@@ -521,13 +522,17 @@
         title: row.c[2]?.v || '',
         venue: row.c[3]?.v || '',
         year: row.c[0]?.v || '',
-        link: row.c[4]?.v || ''
+        link: row.c[4]?.v || '' // Ensure link is extracted correctly
       };
     }).filter(item => item);
 
+    console.log(data); // Debugging: Log the fetched data
+
     let journalCount = 0, conferenceCount = 0;
     data.forEach(item => {
-      const link = item.link ? `<a href="${item.link}" target="_blank" class="button">Link</a>` : '';
+      // Check if the link exists and is not empty
+      const link = item.link && item.link.trim() !== '' ? `<a href="${item.link}" target="_blank">Link</a>` : '';
+
       const reference = `
         <div class="publication-reference">
           <p>
@@ -535,6 +540,7 @@
           </p>
         </div>
       `;
+
       if (item.type.includes('journal')) {
         journalCards.innerHTML += reference;
         journalCount++;
@@ -553,8 +559,9 @@
   }
 }
 
-window.onload = fetchAndDisplayPublications;</script>
-<!-- teaching Subpage -->
+window.onload = fetchAndDisplayPublications;
+    </script>
+      <!-- teaching Subpage -->
 <section class="pt-page pt-page-4" data-id="teaching">
   <div class="border-block-top-110"></div>
   <div class="section-inner">
