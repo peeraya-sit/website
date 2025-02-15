@@ -530,8 +530,9 @@
 
     let journalCount = 0, conferenceCount = 0;
     data.forEach(item => {
-      // Check if the link exists and is not empty
-      const link = item.link && item.link.trim() !== '' ? `<a href="${item.link}" target="_blank">Link</a>` : '';
+      // Validate the link (ensure it's a valid URL)
+      const isValidLink = item.link && item.link.trim() !== '' && item.link.startsWith('http');
+      const link = isValidLink ? `<a href="${item.link}" target="_blank">Link</a>` : '';
 
       if (item.type.includes('journal')) {
         journalCount++;
