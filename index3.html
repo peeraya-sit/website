@@ -502,7 +502,7 @@
 <!-- End research Subpage -->
 
       <script>
-     async function fetchAndDisplayPublications() {
+    async function fetchAndDisplayPublications() {
   const url = 'https://docs.google.com/spreadsheets/d/12dnp6XReH1eXKoIQU7nGISn5nm6ody1Ethf9IKJxb48/gviz/tq?tqx=out:json';
   try {
     const response = await fetch(url);
@@ -533,20 +533,26 @@
       // Check if the link exists and is not empty
       const link = item.link && item.link.trim() !== '' ? `<a href="${item.link}" target="_blank">Link</a>` : '';
 
-      const reference = `
-        <div class="publication-reference">
-          <p>
-            ${item.authors} (${item.year}). <strong>${item.title}</strong>. <em>${item.venue}</em>. ${link}
-          </p>
-        </div>
-      `;
-
       if (item.type.includes('journal')) {
-        journalCards.innerHTML += reference;
         journalCount++;
+        const reference = `
+          <div class="publication-reference">
+            <p>
+              <strong>${journalCount}.</strong> ${item.authors} (${item.year}). <strong>${item.title}</strong>. <em>${item.venue}</em>. ${link}
+            </p>
+          </div>
+        `;
+        journalCards.innerHTML += reference;
       } else if (item.type.includes('conference')) {
-        conferenceCards.innerHTML += reference;
         conferenceCount++;
+        const reference = `
+          <div class="publication-reference">
+            <p>
+              <strong>${conferenceCount}.</strong> ${item.authors} (${item.year}). <strong>${item.title}</strong>. <em>${item.venue}</em>. ${link}
+            </p>
+          </div>
+        `;
+        conferenceCards.innerHTML += reference;
       }
     });
 
