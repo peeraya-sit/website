@@ -423,6 +423,7 @@
             </div>
 
             <!-- Journal Publications Section -->
+            <!-- Journal Publications Section -->
 <div class="row">
   <div class="col-sm-12 col-md-12 subpage-block" id="journal-publications">
     <div class="block-title">
@@ -447,6 +448,7 @@
     </div>
   </div>
 </div>
+            
             
   
                 <div class="row">
@@ -499,8 +501,7 @@
 </div>
 </section>
 <!-- End research Subpage -->
-      <style>
-async function fetchAndDisplayPublications() {
+      async function fetchAndDisplayPublications() {
   const url = 'https://docs.google.com/spreadsheets/d/12dnp6XReH1eXKoIQU7nGISn5nm6ody1Ethf9IKJxb48/gviz/tq?tqx=out:json';
   try {
     const response = await fetch(url);
@@ -526,14 +527,16 @@ async function fetchAndDisplayPublications() {
 
     let journalCount = 0, conferenceCount = 0;
     data.forEach(item => {
-      const link = item.link ? `<a href="${item.link}" target="_blank">Link</a>` : '';
+      const link = item.link ? `<a href="${item.link}" target="_blank" class="button">Link</a>` : '';
       const card = `
-        <div class="publication-card">
-          <h4>${item.title}</h4>
-          <p><strong>Authors:</strong> ${item.authors}</p>
-          <p><strong>Venue:</strong> ${item.venue}</p>
-          <p><strong>Year:</strong> ${item.year}</p>
-          <p><strong>Link:</strong> ${link}</p>
+        <div class="service-block">
+          <div class="service-info">
+            <h4>${item.title}</h4>
+            <p><strong>Authors:</strong> ${item.authors}</p>
+            <p><strong>Venue:</strong> ${item.venue}</p>
+            <p><strong>Year:</strong> ${item.year}</p>
+            ${link}
+          </div>
         </div>
       `;
       if (item.type.includes('journal')) {
@@ -555,7 +558,6 @@ async function fetchAndDisplayPublications() {
 }
 
 window.onload = fetchAndDisplayPublications;
-    </style>
 
 <!-- teaching Subpage -->
 <section class="pt-page pt-page-4" data-id="teaching">
