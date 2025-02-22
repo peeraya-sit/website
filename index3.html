@@ -535,23 +535,25 @@
         title: row.c[2]?.v || '',
         venue: row.c[3]?.v || '',
         year: row.c[0]?.v || '',
-        link: row.c[6]?.v || '' // Ensure link is extracted correctly
+        link: row.c[6]?.v || ''
       };
     }).filter(item => item);
 
-    console.log(data); // Debugging: Log the fetched data
+    console.log(data);
 
     let journalCount = 0, conferenceCount = 0;
     data.forEach(item => {
-      // Check if the link exists and is not empty
       const link = item.link && item.link.trim() !== '' ? `<a href="${item.link}" target="_blank">Link</a>` : '';
+
+      // Underline your name in the authors field
+      const underlinedAuthors = item.authors.replace(/(P\.?\s*Sripian|Sripian,?\s*P\.?)/g, '<u>$1</u>');
 
       if (item.type.includes('journal')) {
         journalCount++;
         const reference = `
           <div class="publication-reference">
             <p>
-              <strong>${journalCount}.</strong> ${item.authors} (${item.year}). <strong>${item.title}</strong>. <em>${item.venue}</em>. ${link}
+              <strong>${journalCount}.</strong> ${underlinedAuthors} (${item.year}). <strong>${item.title}</strong>. <em>${item.venue}</em>. ${link}
             </p>
           </div>
         `;
@@ -561,7 +563,7 @@
         const reference = `
           <div class="publication-reference">
             <p>
-              <strong>${conferenceCount}.</strong> ${item.authors} (${item.year}). <strong>${item.title}</strong>. <em>${item.venue}</em>. ${link}
+              <strong>${conferenceCount}.</strong> ${underlinedAuthors} (${item.year}). <strong>${item.title}</strong>. <em>${item.venue}</em>. ${link}
             </p>
           </div>
         `;
@@ -579,6 +581,7 @@
 }
 
 window.onload = fetchAndDisplayPublications;
+
     </script>
       <!-- teaching Subpage -->
 <section class="pt-page pt-page-4" data-id="teaching">
